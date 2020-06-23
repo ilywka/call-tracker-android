@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <SwitchPreference
+    android:defaultValue="true"
+    android:key="run_task_on_button_click"
+    android:summary="@string/preferences_switch_task_on_age_button_click_summary"
+    android:title="@string/preferences_switch_task_on_age_button_click_title"/>
+</PreferenceScreen>

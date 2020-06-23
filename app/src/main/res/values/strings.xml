@@ -1,0 +1,19 @@
+<resources>
+  <string name="app_name">Call Tracker</string>
+  <string name="action_settings">Settings</string>
+  <string name="age_label">Age</string>
+  <string name="name_label">Name</string>
+  <string name="id_label_text">id</string>
+  <string name="btn_get_user_text">Get user</string>
+  <string name="preferences_switch_task_on_age_button_click_title">Run Task on button click</string>
+  <string name="preferences_switch_task_on_age_button_click_summary">execute background task when add age button
+        clicked
+    </string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="title_activity_synchronization">SynchronizationActivity</string>
+  <string name="synchronize_button_text">synchronize</string>
+  <string name="synchronization_status_text_hint">status will be displayed here</string>
+  <string name="synchronization_last_update_label_text">Last synchronization time</string>
+</resources>
