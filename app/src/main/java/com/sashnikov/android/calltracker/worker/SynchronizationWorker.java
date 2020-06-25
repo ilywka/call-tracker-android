@@ -28,6 +28,7 @@ public class SynchronizationWorker extends Worker {
     private final SynchronizationPreferencesHandler synchronizationPreferencesHandler;
     private final CallsProvider callsProvider;
     private final SalesBoosterService salesBoosterService;
+    private final FirebaseCrashlytics firebaseCrashlytics;
 
     @AssistedInject
     public SynchronizationWorker(
@@ -35,12 +36,13 @@ public class SynchronizationWorker extends Worker {
             @NonNull @Assisted WorkerParameters workerParameters,
             CallsProvider callsProvider,
             SalesBoosterService salesBoosterService,
-            SynchronizationPreferencesHandler synchronizationPreferences
-    ) {
+            SynchronizationPreferencesHandler synchronizationPreferences,
+            FirebaseCrashlytics firebaseCrashlytics) {
         super(context, workerParameters);
-        synchronizationPreferencesHandler = synchronizationPreferences;
+        this.synchronizationPreferencesHandler = synchronizationPreferences;
         this.callsProvider = callsProvider;
         this.salesBoosterService = salesBoosterService;
+        this.firebaseCrashlytics = firebaseCrashlytics;
     }
 
     @NonNull
@@ -64,10 +66,10 @@ public class SynchronizationWorker extends Worker {
             String msg = String.format("Retrieved phone calls: %s", phoneCalls.toString());
             Log.i(LOG_TAG, msg);
 
-            salesBoosterService.saveCalls(phoneCalls);
-            return Result.success();
+            boolean isSaved = salesBoosterService.saveCalls(phoneCalls);
+            return isSaved ? Result.success() : Result.failure();
         } catch (Exception e) {
-            FirebaseCrashlytics.getInstance().recordException(e);
+            firebaseCrashlytics.recordException(e);
             Log.e(LOG_TAG, "Error during synchronization.", e);
             return Result.failure(createOutputDataOnError(e.getMessage()));
         }
