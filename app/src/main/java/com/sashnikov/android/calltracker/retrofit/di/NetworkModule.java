@@ -3,11 +3,13 @@ package com.sashnikov.android.calltracker.retrofit.di;
 import javax.inject.Singleton;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sashnikov.android.calltracker.retrofit.SalesBoosterApi;
 import com.sashnikov.android.calltracker.retrofit.TestRetrofitService;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
+import retrofit2.Converter.Factory;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -29,6 +31,20 @@ public class NetworkModule {
                 .addConverterFactory(converterFactory)
                 .build()
                 .create(TestRetrofitService.class);
+    }
+
+    @Provides
+    @Singleton
+    public SalesBoosterApi provideSalesBoosterApi(
+            OkHttpClient okHttpClient,
+            Factory converterFactory
+    ) {
+        return new Retrofit.Builder()
+                .baseUrl("https://postman-echo.com")
+                .client(okHttpClient)
+                .addConverterFactory(converterFactory)
+                .build()
+                .create(SalesBoosterApi.class);
     }
 
 

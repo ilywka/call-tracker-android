@@ -1,5 +1,6 @@
 package com.sashnikov.android.calltracker.ui.activity.synchronization;
 
+import javax.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
 import android.content.Context;
@@ -7,13 +8,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import androidx.core.util.Consumer;
+import com.sashnikov.android.calltracker.application.ApplicationContext;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
 
 /**
  * @author Ilya_Sashnikau
  */
-public class SynhronizationPreferencesHandler {
+public class SynchronizationPreferencesHandler {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_DATE_TIME;
     private static final String PREFERENCES_FILE_NAME =
@@ -23,7 +26,10 @@ public class SynhronizationPreferencesHandler {
     private final Context context;
     private final List<OnSharedPreferenceChangeListener> listeners;
 
-    public SynhronizationPreferencesHandler(Context context) {
+    @Inject
+    public SynchronizationPreferencesHandler(
+           @ApplicationContext Context context
+    ) {
         this.context = context;
         this.listeners = new LinkedList<>();
     }
@@ -35,7 +41,7 @@ public class SynhronizationPreferencesHandler {
     public LocalDateTime getLastUpdatedDate() {
         String dateTimeString = getPreferences().getString(LAST_UPDATED_DATE_KEY, "");
         if ("".equals(dateTimeString)) {
-            return null;
+            return LocalDateTime.now(ZoneId.systemDefault()).minusDays(2);
         }
         return toDateTime(dateTimeString);
     }

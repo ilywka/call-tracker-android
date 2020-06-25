@@ -3,6 +3,12 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.sashnikov.android.calltracker">
 
+  <uses-permission android:name="android.permission.READ_CONTACTS"/>
+  <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
@@ -68,10 +74,5 @@
     </receiver>
   </application>
 
-  <uses-permission android:name="android.permission.READ_CONTACTS"/>
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-  <uses-permission android:name="android.permission.INTERNET"/>
-
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 </manifest>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "696407030554",
+    "firebase_url": "https://call-tracker-aa7ec.firebaseio.com",
+    "project_id": "call-tracker-aa7ec",
+    "storage_bucket": "call-tracker-aa7ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696407030554:android:6a2c6819721d933a50caa3",
+        "android_client_info": {
+          "package_name": "com.sashnikov.android.calltracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696407030554-hh8ffkofr1svu6eopha867nusci0vej5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmwAQrSiJ2dWQb5xGJkrYzHNoiO45UygA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696407030554-hh8ffkofr1svu6eopha867nusci0vej5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
