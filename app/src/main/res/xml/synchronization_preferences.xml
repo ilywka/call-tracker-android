@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <CheckBoxPreference
-    android:defaultValue="false"
-    android:key="check_box_preference_1"
-    android:title="test pref"/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <EditTextPreference
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:defaultValue="https://localhost:8081/"
+    android:key="@string/backend_url_setting_key"
+    android:selectAllOnFocus="true"
+    android:summary="@string/backend_url_summary"
+    app:defaultValue="http://localhost:8081"
+    android:title="@string/backend_url_label"/>
 </PreferenceScreen>

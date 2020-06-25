@@ -16,4 +16,7 @@
   <string name="synchronize_button_text">synchronize</string>
   <string name="synchronization_status_text_hint">status will be displayed here</string>
   <string name="synchronization_last_update_label_text">Last synchronization time</string>
+  <string name="backend_url_label">Service url</string>
+  <string name="backend_url_setting_key">backend_url</string>
+  <string name="backend_url_summary">backend server location</string>
 </resources>

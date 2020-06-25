@@ -17,15 +17,17 @@ import retrofit2.Response;
 public class SalesBoosterService {
     private static final String LOG_TAG = SalesBoosterService.class.getName();
 
-    private final SalesBoosterApi salesBoosterApi;
+    private final SalesBoosterClient salesBoosterClient;
 
     @Inject
-    public SalesBoosterService(SalesBoosterApi salesBoosterApi) {
-        this.salesBoosterApi = salesBoosterApi;
+    public SalesBoosterService(
+            SalesBoosterClient salesBoosterClient
+    ) {
+        this.salesBoosterClient = salesBoosterClient;
     }
 
     public boolean saveCalls(List<PhoneCall> phoneCalls) {
-        Call<ResponseBody> call = salesBoosterApi.save(phoneCalls);
+        Call<ResponseBody> call = salesBoosterClient.save(phoneCalls);
         try {
             Response<ResponseBody> response = call.execute();
             return response.isSuccessful();
@@ -37,7 +39,7 @@ public class SalesBoosterService {
     }
 
     public boolean isServiceAvailable() {
-        Call<ResponseBody> healthCall = salesBoosterApi.health();
+        Call<ResponseBody> healthCall = salesBoosterClient.health();
         try {
             Response<ResponseBody> response = healthCall.execute();
             boolean successful = response.isSuccessful();

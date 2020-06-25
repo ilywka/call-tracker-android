@@ -19,7 +19,7 @@ import androidx.work.testing.TestWorkerBuilder;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.sashnikov.android.calltracker.contentprovider.CallsProvider;
 import com.sashnikov.android.calltracker.retrofit.SalesBoosterService;
-import com.sashnikov.android.calltracker.ui.activity.synchronization.SynchronizationPreferencesHandler;
+import com.sashnikov.android.calltracker.ui.activity.synchronization.SynchronizationSettings;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ public class SynchronizationWorkerTest {
     @Mock private WorkerParameters workerParameters;
     @Mock private CallsProvider callsProviderMock;
     @Mock private SalesBoosterService salesBoosterServiceMock;
-    @Mock private SynchronizationPreferencesHandler preferencesHandlerMock;
+    @Mock private SynchronizationSettings preferencesHandlerMock;
     @Mock private FirebaseCrashlytics firebaseCrashlytics;
 
     private SynchronizationWorker synchronizationWorker;

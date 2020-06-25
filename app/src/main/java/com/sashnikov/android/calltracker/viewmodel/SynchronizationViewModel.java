@@ -15,7 +15,7 @@ import androidx.work.OneTimeWorkRequest.Builder;
 import androidx.work.WorkInfo.State;
 import androidx.work.WorkManager;
 import com.sashnikov.android.calltracker.application.ApplicationContext;
-import com.sashnikov.android.calltracker.ui.activity.synchronization.SynchronizationPreferencesHandler;
+import com.sashnikov.android.calltracker.ui.activity.synchronization.SynchronizationSettings;
 import com.sashnikov.android.calltracker.worker.SynchronizationWorker;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -32,23 +32,23 @@ public class SynchronizationViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isNetworkConnected;
     private final MutableLiveData<UUID> synchronizationWorkId;
     private final MutableLiveData<OneTimeWorkRequest> synchronizationWorkRequest;
-    private final SynchronizationPreferencesHandler synchronizationPreferencesHandler;
+    private final SynchronizationSettings synchronizationSettings;
     private final MutableLiveData<String> lastUpdatedLiveData;
 
     @Inject
     public SynchronizationViewModel(
             @ApplicationContext Context context,
-            SynchronizationPreferencesHandler preferencesHandler
+            SynchronizationSettings preferencesHandler
     ) {
         this.context = context;
         this.workManager = WorkManager.getInstance(context);
         this.isNetworkConnected = new MutableLiveData<>(isNetworkConnected());
         this.synchronizationWorkId = new MutableLiveData<>();
         this.synchronizationWorkRequest = new MutableLiveData<>();
-        this.synchronizationPreferencesHandler = preferencesHandler;
-        LocalDateTime lastUpdatedDate = synchronizationPreferencesHandler.getLastUpdatedDate();
+        this.synchronizationSettings = preferencesHandler;
+        LocalDateTime lastUpdatedDate = synchronizationSettings.getLastUpdatedDate();
         this.lastUpdatedLiveData = new MutableLiveData<>(formatDate(lastUpdatedDate));
-        synchronizationPreferencesHandler.observeLastUpdatedDate(localDateTime -> lastUpdatedLiveData.postValue(formatDate(localDateTime)));
+        synchronizationSettings.observeLastUpdatedDate(localDateTime -> lastUpdatedLiveData.postValue(formatDate(localDateTime)));
     }
 
     private String formatDate(LocalDateTime localDateTime) {
@@ -77,7 +77,7 @@ public class SynchronizationViewModel extends ViewModel {
                     .observeForever(workInfo -> {
                         State state = workInfo.getState();
                         if (State.SUCCEEDED.equals(state)) {
-                            synchronizationPreferencesHandler.setLastUpdatedDate(syncStart);
+                            synchronizationSettings.setLastUpdatedDate(syncStart);
                         }
                     });
         }

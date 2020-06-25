@@ -6,15 +6,16 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 /**
  * @author Ilya_Sashnikau
  */
-public interface SalesBoosterApi {
+public interface SalesBoosterRetrofitApi {
 
-    @POST("/api/calls/")
-    Call<ResponseBody> save(List<PhoneCall> phoneCalls);
+    @POST
+    Call<ResponseBody> save(@Url String url, List<PhoneCall> phoneCalls);
 
-    @GET("/api/health")
-    Call<ResponseBody> health();
+    @GET
+    Call<ResponseBody> health(@Url String url);
 }

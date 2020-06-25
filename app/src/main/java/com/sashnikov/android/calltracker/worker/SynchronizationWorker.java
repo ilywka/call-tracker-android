@@ -11,7 +11,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.sashnikov.android.calltracker.contentprovider.CallsProvider;
 import com.sashnikov.android.calltracker.model.PhoneCall;
 import com.sashnikov.android.calltracker.retrofit.SalesBoosterService;
-import com.sashnikov.android.calltracker.ui.activity.synchronization.SynchronizationPreferencesHandler;
+import com.sashnikov.android.calltracker.ui.activity.synchronization.SynchronizationSettings;
 import com.sashnikov.android.calltracker.worker.di.CustomWorkerFactory;
 import com.squareup.inject.assisted.Assisted;
 import com.squareup.inject.assisted.AssistedInject;
@@ -25,7 +25,7 @@ public class SynchronizationWorker extends Worker {
     private static final String LOG_TAG = SynchronizationWorker.class.getName();
     private static final String ERROR_MESSAGE_KEY = "synchronizationWorkerErrorMessage";
 
-    private final SynchronizationPreferencesHandler synchronizationPreferencesHandler;
+    private final SynchronizationSettings synchronizationSettings;
     private final CallsProvider callsProvider;
     private final SalesBoosterService salesBoosterService;
     private final FirebaseCrashlytics firebaseCrashlytics;
@@ -36,10 +36,10 @@ public class SynchronizationWorker extends Worker {
             @NonNull @Assisted WorkerParameters workerParameters,
             CallsProvider callsProvider,
             SalesBoosterService salesBoosterService,
-            SynchronizationPreferencesHandler synchronizationPreferences,
+            SynchronizationSettings synchronizationPreferences,
             FirebaseCrashlytics firebaseCrashlytics) {
         super(context, workerParameters);
-        this.synchronizationPreferencesHandler = synchronizationPreferences;
+        this.synchronizationSettings = synchronizationPreferences;
         this.callsProvider = callsProvider;
         this.salesBoosterService = salesBoosterService;
         this.firebaseCrashlytics = firebaseCrashlytics;
@@ -52,7 +52,7 @@ public class SynchronizationWorker extends Worker {
             if (!salesBoosterService.isServiceAvailable()) {
                 return Result.failure(createOutputDataOnError("Service unavailable"));
             }
-            LocalDateTime lastUpdatedDate = synchronizationPreferencesHandler.getLastUpdatedDate();
+            LocalDateTime lastUpdatedDate = synchronizationSettings.getLastUpdatedDate();
 
             String message =
                     String.format(
