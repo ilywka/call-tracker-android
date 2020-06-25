@@ -1,6 +1,7 @@
 package com.sashnikov.android.calltracker.retrofit.di;
 
 import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sashnikov.android.calltracker.retrofit.SalesBoosterRetrofitApi;
@@ -51,7 +52,10 @@ public class NetworkModule {
     @Provides
     @Singleton
     public OkHttpClient providesOkHttpClient() {
-        return new OkHttpClient.Builder().build();
+        return new OkHttpClient.Builder()
+                .callTimeout(5, TimeUnit.MINUTES)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .build();
     }
 
     @Provides
