@@ -33,7 +33,6 @@ public class SalesBoosterService {
             return response.isSuccessful();
         } catch (IOException e) {
             FirebaseCrashlytics.getInstance().recordException(e);
-            Log.e(LOG_TAG, "Error saving data", e);
             return false;
         }
     }
@@ -50,7 +49,6 @@ public class SalesBoosterService {
             return successful;
         } catch (IOException e) {
             FirebaseCrashlytics.getInstance().recordException(e);
-            Log.e(LOG_TAG, "service unavailable.", e);
             return false;
         }
     }

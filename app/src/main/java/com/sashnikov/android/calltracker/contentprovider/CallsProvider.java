@@ -32,8 +32,6 @@ public class CallsProvider {
     }
 
     public List<PhoneCall> callsSince(LocalDateTime sinceDateTime) {
-        String message = String.format("Retrieving calls since %s", sinceDateTime.toString());
-        Log.i(LOG_TAG, message);
 
         List<PhoneCall> phoneCalls = new ArrayList<>();
         String[] projection = {
@@ -73,7 +71,6 @@ public class CallsProvider {
         String selectionClause = String.format("%s > ?", Calls.DATE);
 
         long sinceEpochMills = 1000 * sinceDateTime.atZone(ZoneId.systemDefault()).toEpochSecond();
-        Log.i(LOG_TAG, "since seconds " + sinceEpochMills);
 
         String[] selectionArgs = {Long.toString(sinceEpochMills)};
         String sortOrder = null;

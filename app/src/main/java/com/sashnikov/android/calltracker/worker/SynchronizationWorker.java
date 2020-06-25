@@ -54,23 +54,12 @@ public class SynchronizationWorker extends Worker {
             }
             LocalDateTime lastUpdatedDate = synchronizationSettings.getLastUpdatedDate();
 
-            String message =
-                    String.format(
-                            "Starting data synchronization. Last updated date: %s",
-                            lastUpdatedDate.toString()
-                    );
-            Log.i(LOG_TAG, message);
-
             List<PhoneCall> phoneCalls = callsProvider.callsSince(lastUpdatedDate);
-
-            String msg = String.format("Retrieved phone calls: %s", phoneCalls.toString());
-            Log.i(LOG_TAG, msg);
 
             boolean isSaved = salesBoosterService.saveCalls(phoneCalls);
             return isSaved ? Result.success() : Result.failure();
         } catch (Exception e) {
             firebaseCrashlytics.recordException(e);
-            Log.e(LOG_TAG, "Error during synchronization.", e);
             return Result.failure(createOutputDataOnError(e.getMessage()));
         }
     }
